@@ -84,6 +84,9 @@ resource "google_container_cluster" "primary" {
     for_each = length(var.monitoring_enabled_components) > 0 ? [1] : []
     content {
       enable_components = var.monitoring_enabled_components
+      managed_prometheus {
+        enabled = var.monitoring_enable_managed_prometheus == null ? false : var.monitoring_enable_managed_prometheus
+      }
     }
   }
 
